@@ -1,6 +1,6 @@
-package com.codecake.spotify_clone_be.catalogcontext.application;
+package com.codecake.spotify_clone_be.catalogcontext.application.vo;
 
 import jakarta.validation.constraints.NotBlank;
 
-public record SongTitle (@NotBlank String value) {
+public record SongTitleVO(@NotBlank String value) {
 }

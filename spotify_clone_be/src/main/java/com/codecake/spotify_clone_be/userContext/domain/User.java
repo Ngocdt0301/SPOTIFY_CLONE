@@ -1,10 +1,7 @@
-package com.codecake.spotify_clone_be.userContext;
+package com.codecake.spotify_clone_be.userContext.domain;
 
 import com.codecake.spotify_clone_be.sharedkernel.domain.AbstractAuditingEntity;
 import jakarta.persistence.*;
-import jdk.jshell.JShell;
-
-import java.util.concurrent.Flow;
 
 @Entity
 @Table(name = "spotify_user")
@@ -29,10 +26,55 @@ public class User extends AbstractAuditingEntity<Long> {
     @Column(name = "image_url")
     private String imageUrl;
 
-//    @Override
-//    public Long getId() {
-//        return null;
-//    }
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Subscription getSubscription() {
+        return subscription;
+    }
+
+    public void setSubscription(Subscription subscription) {
+        this.subscription = subscription;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 }
 
 

@@ -1,2 +1,49 @@
-package com.codecake.spotify_clone_be.catalogcontext.domain;public class FavouriteId {
+package com.codecake.spotify_clone_be.catalogcontext.domain;
+
+import java.io.Serializable;
+import java.util.Objects;
+import java.util.UUID;
+
+public class FavouriteId implements Serializable {
+    UUID songPublicId;
+
+    String userEmail;
+
+    public FavouriteId() {
+
+    }
+
+    public FavouriteId(UUID songPublicId, String userEmail) {
+        this.songPublicId = songPublicId;
+        this.userEmail = userEmail;
+    }
+
+    public UUID getSongPublicId() {
+        return songPublicId;
+    }
+
+    public void setSongPublicId(UUID songPublicId) {
+        this.songPublicId = songPublicId;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FavouriteId that = (FavouriteId) o;
+        return Objects.equals(songPublicId, that.songPublicId) && Objects.equals(userEmail, that.userEmail);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(songPublicId, userEmail);
+    }
 }
