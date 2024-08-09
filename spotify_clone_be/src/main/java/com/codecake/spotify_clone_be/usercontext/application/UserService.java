@@ -1,11 +1,10 @@
-package com.codecake.spotify_clone_be.userContext.application;
+package com.codecake.spotify_clone_be.usercontext.application;
 
-import com.codecake.spotify_clone_be.userContext.ReadUserDTO;
-import com.codecake.spotify_clone_be.userContext.domain.User;
-import com.codecake.spotify_clone_be.userContext.mapper.UserMapper;
-import com.codecake.spotify_clone_be.userContext.repository.UserRepository;
+import com.codecake.spotify_clone_be.usercontext.ReadUserDTO;
+import com.codecake.spotify_clone_be.usercontext.domain.User;
+import com.codecake.spotify_clone_be.usercontext.mapper.UserMapper;
+import com.codecake.spotify_clone_be.usercontext.repository.UserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
@@ -14,22 +13,15 @@ import java.util.Map;
 import java.util.Optional;
 
 @Service
-
 public class UserService {
 
     private final UserRepository userRepository;
-    private final UserMapper userMapper;
 
+    private final UserMapper userMapper;
 
     public UserService(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
-    }
-
-    public ReadUserDTO getAuthenticatedUserFromSecurityContext(){
-        OAuth2User principal = (OAuth2User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = mapOauth2AttributesToUser(principal.getAttributes());
-        return userMapper.readUserDTOToUser(user);
     }
 
     public void syncWithIdp(OAuth2User oAuth2User) {
@@ -53,9 +45,16 @@ public class UserService {
             userRepository.saveAndFlush(user);
         }
     }
-    private void updateUser(User user){
+
+    public ReadUserDTO getAuthenticatedUserFromSecurityContext() {
+        OAuth2User principal = (OAuth2User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = mapOauth2AttributesToUser(principal.getAttributes());
+        return userMapper.readUserDTOToUser(user);
+    }
+
+    private void updateUser(User user) {
         Optional<User> userToUpdateOpt = userRepository.findOneByEmail(user.getEmail());
-        if(userToUpdateOpt.isPresent()){
+        if (userToUpdateOpt.isPresent()) {
             User userToUpdate = userToUpdateOpt.get();
             userToUpdate.setEmail(user.getEmail());
             userToUpdate.setImageUrl(user.getImageUrl());
@@ -65,7 +64,7 @@ public class UserService {
         }
     }
 
-    private User mapOauth2AttributesToUser(Map<String, Object> attributes){
+    private User mapOauth2AttributesToUser(Map<String, Object> attributes) {
         User user = new User();
         String sub = String.valueOf(attributes.get("sub"));
 
@@ -74,9 +73,10 @@ public class UserService {
         if (attributes.get("preferred_username") != null) {
             username = ((String) attributes.get("preferred_username")).toLowerCase();
         }
+
         if (attributes.get("given_name") != null) {
             user.setFirstName((String) attributes.get("given_name"));
-        }else if(attributes.get("name") != null) {
+        } else if (attributes.get("name") != null) {
             user.setFirstName((String) attributes.get("name"));
         }
 
@@ -84,11 +84,11 @@ public class UserService {
             user.setLastName((String) attributes.get("family_name"));
         }
 
-        if(attributes.get("email") != null) {
+        if (attributes.get("email") != null) {
             user.setEmail((String) attributes.get("email"));
         } else if (sub.contains("|") && (username != null && username.contains("@"))) {
             user.setEmail(username);
-        }else {
+        } else {
             user.setEmail(sub);
         }
 
@@ -97,5 +97,14 @@ public class UserService {
         }
 
         return user;
+    }
+
+    public Optional<ReadUserDTO> getByEmail(String email) {
+        Optional<User> oneByEmail = userRepository.findOneByEmail(email);
+        return oneByEmail.map(userMapper::readUserDTOToUser);
+    }
+
+    public boolean isAuthenticated() {
+        return !SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser");
     }
 }

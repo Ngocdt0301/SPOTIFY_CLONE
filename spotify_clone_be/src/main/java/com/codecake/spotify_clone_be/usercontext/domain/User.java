@@ -1,4 +1,4 @@
-package com.codecake.spotify_clone_be.userContext.domain;
+package com.codecake.spotify_clone_be.usercontext.domain;
 
 import com.codecake.spotify_clone_be.sharedkernel.domain.AbstractAuditingEntity;
 import jakarta.persistence.*;

@@ -26,7 +26,7 @@ public class Song implements Serializable {
     private String author;
 
     @Column(name = "cover", nullable = false)
-    private String cover;
+    private byte[] cover;
 
     @Column(name = "cover_content_type")
     private String coverContentType;
@@ -63,11 +63,11 @@ public class Song implements Serializable {
         this.author = author;
     }
 
-    public String getCover() {
+    public byte[] getCover() {
         return cover;
     }
 
-    public void setCover(String cover) {
+    public void setCover(byte[] cover) {
         this.cover = cover;
     }
 

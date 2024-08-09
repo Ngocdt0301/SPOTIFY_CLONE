@@ -1,6 +1,6 @@
-package com.codecake.spotify_clone_be.userContext.repository;
+package com.codecake.spotify_clone_be.usercontext.repository;
 
-import com.codecake.spotify_clone_be.userContext.domain.User;
+import com.codecake.spotify_clone_be.usercontext.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

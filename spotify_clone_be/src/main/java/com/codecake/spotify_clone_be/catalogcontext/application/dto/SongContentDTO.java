@@ -4,5 +4,5 @@ import jakarta.persistence.Lob;
 
 import java.util.UUID;
 
-public record SongContentDTO(UUID publicID, @Lob byte[] file, String fileContentType) {
+public record SongContentDTO(UUID publicId, @Lob byte[] file, String fileContentType) {
 }

@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@EnableJpaRepositories({"com.codecake.spotify_clone_be.userContext.repository",
+@EnableJpaRepositories({"com.codecake.spotify_clone_be.usercontext.repository",
         "com.codecake.spotify_clone_be.catalogcontext.repository"
 })
 @EnableTransactionManagement

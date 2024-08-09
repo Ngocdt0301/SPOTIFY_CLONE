@@ -1,7 +1,7 @@
-package com.codecake.spotify_clone_be.userContext.presentation;
+package com.codecake.spotify_clone_be.usercontext.presentation;
 
-import com.codecake.spotify_clone_be.userContext.ReadUserDTO;
-import com.codecake.spotify_clone_be.userContext.application.UserService;
+import com.codecake.spotify_clone_be.usercontext.ReadUserDTO;
+import com.codecake.spotify_clone_be.usercontext.application.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
